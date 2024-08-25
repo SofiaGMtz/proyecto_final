@@ -1,0 +1,23 @@
+{% extends "index.html" %}
+
+{% block content %}
+
+    <div class="container mt-4">
+        <h2>Configurar Perfil</h2>
+
+
+        <form method="post" action="{{ url_for('main.update_profile') }}">
+            <div class="form-group">
+                <label for="username">Nombre de Usuario</label>
+                <input type="text" class="form-control" id="username" name="username" value="{{ current_user.username }}" required>
+            </div>
+            <button type="submit" class="btn btn-primary">Actualizar Perfil</button>
+        </form>
+
+    
+        <form action="{{ url_for('main.logout') }}" method="post" style="margin-top: 20px;">
+            <button type="submit" class="btn btn-danger">Cerrar Sesión</button>
+        </form>
+    </div>
+
+{% endblock %}

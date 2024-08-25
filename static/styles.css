@@ -1,0 +1,40 @@
+body {
+    background-color: #ccc;
+    font-size: 24px;
+}
+
+.profile-img {
+    width: 30px; 
+    height: 30px; 
+    border-radius: 50%; 
+    vertical-align: middle; 
+    margin-right: 5px; 
+}
+
+.navbar-nav .nav-item {
+    margin-left: 15px; 
+}
+
+.mb-4 {
+    /* font-size: 12px; */
+    background-color: #fafafa;
+    padding: 10px 10px 10px 10px;
+    margin-top: 10px;
+    border-radius: 4px;
+}
+
+.question-content {
+    margin: 0.5rem 0;
+    font-size: 1rem; 
+    color: #666; 
+}
+
+.question-footer {
+    text-align: right;
+}
+
+.question-footer p {
+    font-size: 0.875rem; 
+    color: #777; 
+    margin: 0; 
+}

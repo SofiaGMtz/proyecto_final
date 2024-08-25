@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Student Overflow</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body>
+    {% include 'navbar.html' %}
+
+    {% block content %}
+        <div class="container mt-4">
+            <h1>Preguntas mas recientes</h1>
+            {% if recent_questions %}
+                <ul class="list-unstyled">
+                    {% for question in recent_questions %}
+                        <li class="mb-4">
+                            <h2 class="question-title">
+                                <a href="{{ url_for('main.view_question', question_id=question.id) }}">{{ question.title }}</a>
+                            </h2>
+                            <div class="question-content">
+                                {% set paragraphs = question.content.split('\n') %}
+                                {% for paragraph in paragraphs[:4] %}
+                                    <p>{{ paragraph|safe }}</p> <!-- Se usa |safe para permitir renderizado HTML -->
+                                {% endfor %}
+                                {% if paragraphs|length > 4 %}
+                                    <a href="{{ url_for('main.view_question', question_id=question.id) }}">Ver más...</a>
+                                {% endif %}
+                            </div>
+                            <div class="question-footer">
+                                <p class="text-muted">
+                                    <span class="asked-by" style="font-style: italic; color: grey;">Asked by: {{ question.user.username }}</span> |
+                                    <span class="question-date">Fecha: {{ question.created_at.strftime('%d %b %Y') }}</span>
+                                </p>
+                            </div>
+                        </li>
+                    {% endfor %}
+                </ul>
+            {% else %}
+                <p>No hay preguntas recientes para mostrar.</p>
+            {% endif %}
+        </div>
+    {% endblock %}
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.3/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+</html>

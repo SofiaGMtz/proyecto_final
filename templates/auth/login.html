@@ -1,0 +1,32 @@
+{% extends "index.html" %}
+
+{% block content %} 
+    <link rel="stylesheet" href="{{ url_for('static', filename='login.css') }}">
+
+    <div class="container">
+        <div class="login">
+            {% with messages = get_flashed_messages()  %}
+            {% if messages %}
+            {% for message in messages %}
+            <div class="alert" role="alert">
+            {{ message }}
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                <span aria-hidden="true">×</span>
+            </button>
+            </div>
+            {% endfor %}
+            {% endif %}
+            {% endwith %}
+            <form action="/auth/login", method="post">
+                <h3>Correo</h3>
+                <input type="email", name="email">
+                <h3>Contraseña</h3>
+                <input type="password", name="password">
+                <input type="submit", value="Iniciar Sesion"/>
+                <div class="ask">No tienes una cuenta aún? 
+                    <a class="ask-a" href="{{ url_for('main.register') }}">Registrate</a>
+                </div>
+            </form>
+        </div>
+    </div>
+{% endblock %}

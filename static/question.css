@@ -1,0 +1,44 @@
+.mb-4 {
+    margin-top: 10px;
+    padding: 12px 12px 4px 12px;
+    background-color: #fafafa;
+    border-radius: 4px;
+}
+
+.question-title {
+    font-size: 1.5rem; 
+    color: #333; 
+}
+
+.question-content {
+    margin: 0.5rem 0;
+    font-size: 1rem; 
+    color: #666; 
+}
+
+.question-footer {
+    margin-top: 1rem;
+    text-align: right; 
+}
+
+.question-footer p {
+    font-size: 0.875rem; 
+    color: #777; 
+    margin: 0; 
+}
+
+.asked-by {
+    font-style: italic; 
+}
+
+.question-date {
+    font-style: italic; 
+}
+
+.votes {
+    margin-top: 5px;
+}
+
+.votes button {
+    margin-right: 5px;
+}

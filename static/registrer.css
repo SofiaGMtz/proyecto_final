@@ -1,0 +1,83 @@
+body {
+    background-color: #ccc;
+}
+
+.container {
+    width: 100%;
+    max-width: 300px; 
+    margin: 50px auto; 
+    padding: 20px;
+    background-color: #f3f3f3;
+    border-radius: 10px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 250px;
+}
+
+.register {
+    width: 100%; 
+    display: flex;
+    flex-direction: column;
+    gap: 15px; 
+}
+
+h3 {
+    font-size: 20px;
+}
+
+.register input[type="password"],
+.register input[type="email"],
+.register input[type="text"] {
+    margin-top: 3px;
+    margin-bottom: 6px;
+    width: 100%;
+    padding: 8px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    box-sizing: border-box; 
+}
+
+.register input[type="submit"] {
+    margin-top: 16px;
+    width: 100%;
+    padding: 10px;
+    background-color: #007bff;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.register input[type="submit"]:hover {
+    background-color: #0056b3;
+}
+
+.alert {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: rgb(237, 86, 86);
+    color: white;
+    padding: 10px 4px 10px 4px;
+    border-radius: 5px;
+}
+
+.close {
+    /* margin-left: 12px; */
+    background-color: #007bff00;
+    border: none;
+    color: white;
+    cursor: pointer;
+}
+
+.ask {
+    font-size: 12px;
+    display: flex;
+    justify-content: right;
+    margin-top: 12px;
+}
+
+.ask-a {
+    padding-left: 4px;
+}

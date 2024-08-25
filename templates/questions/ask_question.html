@@ -1,0 +1,50 @@
+{% extends 'index.html' %}
+
+{% block content %}
+<div class="ask-question">
+    <h1>Hacer una Pregunta</h1>
+    <form method="POST" action="{{ url_for('main.ask_question') }}">
+        <!-- Campo de título -->
+        <div class="form-group">
+            <label for="title">Título de la pregunta:</label>
+            <input type="text" class="form-control" id="title" name="title" required>
+        </div>
+
+        <!-- Editor TinyMCE para contenido -->
+        <div class="form-group">
+            <label for="content">Contenido:</label>
+            <textarea id="content" name="content"></textarea> <!-- Textarea para TinyMCE -->
+        </div>
+
+        <button type="submit" class="btn btn-primary">Enviar</button>
+    </form>
+</div>
+
+<!-- Incluye TinyMCE desde CDN -->
+<script src="https://cdn.tiny.cloud/1/bbjv76omcd2pjrou99s00mqe7cxwttb4wv4g7t5qq9e1uki5/tinymce/7/tinymce.min.js" referrerpolicy="origin"></script>
+
+<!-- Inicializa el editor TinyMCE -->
+<script>
+    tinymce.init({
+        selector: '#content',
+        height: 300,
+        menubar: false,
+        plugins: 'advlist autolink lists link image charmap preview anchor searchreplace visualblocks code fullscreen insertdatetime media table paste help wordcount',
+        toolbar: 'undo redo | formatselect | bold italic backcolor | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | removeformat | help',
+        content_css: 'https://www.tiny.cloud/css/codepen.min.css'
+    });
+
+    // Al enviar el formulario, pasa el contenido de TinyMCE al textarea
+    document.querySelector('form').onsubmit = function() {
+        var content = tinymce.get('content').getContent();
+        document.querySelector('textarea[name=content]').value = content;
+    };
+</script>
+
+<style>
+    .ask-question {
+        padding: 20px 40px 0 40px;
+    }
+</style>
+
+{% endblock %}

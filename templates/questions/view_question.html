@@ -1,0 +1,84 @@
+{% extends 'index.html' %}
+
+{% block content %}
+<div class="container mt-4">
+    <h2>{{ question.title }}</h2>
+    <p>{{ question.content|safe }}</p>
+    <small class="text-muted">Asked by: {{ question.user.username }} on {{ question.created_at.strftime('%d %b %Y') }}</small>
+    
+    <hr>
+    
+    <h3>Respuestas</h3>
+    <ul class="list-unstyled">
+        {% for answer in question.answers %}
+            <li class="mb-3">
+                <p>{{ answer.content|safe }}</p>
+                <small class="text-muted">Answered by: {{ answer.user.username }} on {{ answer.created_at.strftime('%d %b %Y') }}</small>
+                
+                <div class="votes">
+                    {% if current_user.is_authenticated %}
+                        <!-- Botones de like/dislike si está autenticado -->
+                        <form action="{{ url_for('main.vote', answer_id=answer.id, action='like') }}" method="post" style="display: inline;">
+                            <button type="submit" class="btn btn-outline-success btn-sm {% if answer.id in user_votes and user_votes[answer.id] %}active{% endif %}">
+                                ↑
+                            </button>
+                        </form>
+                        
+                        <span class="vote-count">{{ answer.upvote_count() - answer.downvote_count() }}</span>
+                        
+                        <form action="{{ url_for('main.vote', answer_id=answer.id, action='dislike') }}" method="post" style="display: inline;">
+                            <button type="submit" class="btn btn-outline-danger btn-sm {% if answer.id in user_votes and not user_votes[answer.id] %}active{% endif %}">
+                                ↓
+                            </button>
+                        </form>
+                    {% else %}
+                        <!-- Redirigir a login si no está autenticado -->
+                        <a href="{{ url_for('main.login') }}" class="btn btn-secondary btn-sm">↑</a>
+                        <span class="vote-count">{{ answer.upvote_count() - answer.downvote_count() }}</span>
+                        <a href="{{ url_for('main.login') }}" class="btn btn-secondary btn-sm">↓</a>
+                    {% endif %}
+                </div>
+            </li>
+        {% else %}
+            <p>No hay respuestas aún. ¡Sé el primero en responder!</p>
+        {% endfor %}
+    </ul>
+    
+    <hr>
+    
+    <h3>Añadir una respuesta</h3>
+    {% if current_user.is_authenticated %}
+        <form class="container-answer" method="POST">
+            <!-- Editor TinyMCE para contenido -->
+            <div class="form-group">
+                <textarea id="content" name="content"></textarea> <!-- Textarea para TinyMCE -->
+            </div>
+
+            <button type="submit" class="btn btn-primary">Enviar</button>
+        </form>
+    {% else %}
+        <p>Para responder, por favor <a href="{{ url_for('main.login') }}">inicia sesión</a>.</p>
+    {% endif %}
+
+    <!-- Incluye TinyMCE desde CDN -->
+    <script src="https://cdn.tiny.cloud/1/bbjv76omcd2pjrou99s00mqe7cxwttb4wv4g7t5qq9e1uki5/tinymce/7/tinymce.min.js" referrerpolicy="origin"></script>
+
+    <!-- Inicializa el editor TinyMCE -->
+    <script>
+        tinymce.init({
+            selector: '#content',
+            height: 300,
+            menubar: false,
+            plugins: 'advlist autolink lists link image charmap preview anchor searchreplace visualblocks code fullscreen insertdatetime media table paste help wordcount',
+            toolbar: 'undo redo | formatselect | bold italic backcolor | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | removeformat | help',
+            content_css: 'https://www.tiny.cloud/css/codepen.min.css'
+        });
+
+        // Al enviar el formulario, pasa el contenido de TinyMCE al textarea
+        document.querySelector('form').onsubmit = function() {
+            var content = tinymce.get('content').getContent();
+            document.querySelector('textarea[name=content]').value = content;
+        };
+    </script>
+
+{% endblock %}
